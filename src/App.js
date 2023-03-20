@@ -13,11 +13,10 @@ function App() {
  
 
   
-  const configuration = useMemo(() => new Configuration({
-    apiKey: process.env.API_KEY,
-    console.log(process.env.API_KEY);
-
-  }), []);
+ const configuration = useMemo(() => new Configuration({
+  apiKey: process.env.API_KEY,
+}), [process.env.API_KEY]);
+console.log(process.env.API_KEY);
 
   const openai = useMemo(() => new OpenAIApi(configuration), [configuration]);
 
