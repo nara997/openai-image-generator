@@ -14,7 +14,7 @@ function App() {
 
   
   const configuration = useMemo(() => new Configuration({
-    apiKey: api_Key
+    apiKey: api_Key;
   }), []);
 
   const openai = useMemo(() => new OpenAIApi(configuration), [configuration]);
