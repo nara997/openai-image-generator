@@ -10,8 +10,11 @@ function App() {
     "Search Anything Here .."
   );
   
+  const api_Key = process.env.API_KEY;
+
+  
   const configuration = useMemo(() => new Configuration({
-    apiKey: process.env.API_KEY,
+    apiKey: api_Key
   }), []);
 
   const openai = useMemo(() => new OpenAIApi(configuration), [configuration]);
