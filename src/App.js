@@ -14,9 +14,9 @@ function App() {
 
   
  const configuration = useMemo(() => new Configuration({
-  apiKey: import.meta.env.API_KEY,
-}), [import.meta.env.API_KEY]);
-console.log(import.meta.env.API_KEY);
+  apiKey: env.API_KEY,
+}), [env.API_KEY]);
+console.log(env.API_KEY);
 
   const openai = useMemo(() => new OpenAIApi(configuration), [configuration]);
 
