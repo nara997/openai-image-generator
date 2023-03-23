@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import { Configuration } from "openai";
+
 import "./App.css";
 
 function App() {
@@ -11,9 +11,7 @@ function App() {
   );
   
   const API_KEY = "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"
-  const configuration = useMemo(() => new Configuration({
-    apiKey: API_KEY,
-  }), [API_KEY]);
+ 
   
   console.log(API_KEY)
 
@@ -22,7 +20,7 @@ function App() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${configuration.apiKey}`,
+        "Authorization": `Bearer ${API_KEY}`,
       },
       body: JSON.stringify({
         prompt: prompt,
