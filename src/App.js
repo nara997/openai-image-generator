@@ -10,9 +10,10 @@ function App() {
     "Search Anything Here .."
   );
   
+  const API_KEY = "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"
   const configuration = useMemo(() => new Configuration({
-    apiKey: process.env.API_KEY,
-  }), [process.env.API_KEY]);
+    apiKey: API_KEY,
+  }), [API_KEY]);
   
   console.log(process.env.API_KEY)
 
