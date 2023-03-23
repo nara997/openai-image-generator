@@ -15,7 +15,7 @@ function App() {
     apiKey: API_KEY,
   }), [API_KEY]);
   
-  console.log(process.env.API_KEY)
+  console.log(API_KEY)
 
   async function myFetch(prompt, configuration) {
     const response = await fetch("https://api.openai.com/v1/images/generations", {
