@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import { Configuration, OpenAIApi } from "openai";
+import { Configuration } from "openai";
 import "./App.css";
 
 function App() {
@@ -10,31 +10,43 @@ function App() {
     "Search Anything Here .."
   );
   
- 
-
-  
-const configuration = useMemo(() => new Configuration({
-  apiKey: process.env.API_KEY,
-}), [process.env.API_KEY]);
+  const configuration = useMemo(() => new Configuration({
+    apiKey: process.env.API_KEY,
+  }), [process.env.API_KEY]);
   
   console.log(process.env.API_KEY)
 
-  const openai = useMemo(() => new OpenAIApi(configuration), [configuration]);
+  async function myFetch(prompt, configuration) {
+    const response = await fetch("https://api.openai.com/v1/images/generations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${configuration.apiKey}`,
+      },
+      body: JSON.stringify({
+        prompt: prompt,
+        n: 1,
+        size: "512x512",
+      }),
+    });
+    const json = await response.json();
+    if (!response.ok) {
+      throw new Error(json.error.message);
+    }
+    return json.data[0].url;
+  }
 
   const generateImage = useCallback(async () => {
     setPlaceholder(`Recent Search: ${prompt}`);
     setImgSrc("")
     setLoading(true);
-    const response = await openai.createImage({
-      prompt: prompt,
-      n: 1,
-      size: "512x512",
-    });
-    
-    setImgSrc(response.data.data[0].url);
-  }, [prompt, openai]);
-
-  
+    try {
+      const url = await myFetch(prompt, configuration);
+      setImgSrc(url);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [prompt, configuration]);
 
   return (
     <div className="app-main">
